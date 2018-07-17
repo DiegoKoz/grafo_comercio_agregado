@@ -1,0 +1,440 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% Versión 4.x: YSI
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%\documentclass[a4paper]{llncs}
+\documentclass[a4paper]{article}
+
+
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{natbib}
+\setcounter{tocdepth}{3}
+\usepackage{graphicx}
+\graphicspath{ {Graficos/} }
+\usepackage{subfigure}
+\usepackage{gensymb}
+
+\usepackage{url}
+\usepackage[utf8]{inputenc}
+
+\usepackage[spanish]{babel}
+\selectlanguage{spanish}
+%\usepackage[style=authoryear]{biblatex}
+
+\urldef{\mailsa}\path|diegokoz92@gmail.com|    
+\newcommand{\keywords}[1]{\par\addvspace\baselineskip
+\noindent\keywordname\enspace\ignorespaces#1}
+%\renewcommand\keywordname{Palabras Clave:}
+
+\begin{document}
+
+%\mainmatter  % start of an individual contribution
+
+% first the title is needed
+\title{Descripción del comercio internacional\\utilizando un modelo de redes complejas}
+
+\date{21 de Julio de 2018}
+
+
+\author{Diego Kozlowski}
+%
+%\institute{Maestría en Data Mining \& Knowledge Discovery, FCEyN-UBA\\ %\mailsa}
+\maketitle
+
+
+\begin{abstract} 
+
+The analysis of international trade is one of the leading areas of study of economic research. However, few analytical metrics manage to capture the global structure of the economy, maintaining its complexity. By keeping an overall view of the world market, studies tend to concentrate on generic measures that are difficult to account for the existing subtleties. On the other hand, access to new technologies for data analysis is an incentive to embed the study of the world economy of the complexity of its object of study. Graph theory allows characterizing the emergent properties of a network based on the study of its topological characteristics.
+In this sense, thinking of the world economy as a complex network can allow a detailed analysis of the global character of trade, without necessarily stopping in a particular country. The objective of this paper is to provide a brief analytical framework for graph analysis, and its application in the case of international trade, with the methodological decisions that this implies. For its part, we will seek to interpret the quantitative results obtained, while looking for answers regarding the role that specific countries play in international trade, the forms of commercial relationships that occur, and the changes in the structure of the graph that are observed with the incorporation of China to the world market.
+\\~\\
+\textbf{Keywords:} graph, international trade
+\\~\\
+
+El análisis del comercio internacional constituye una de las principales áreas estudio de la investigación económica. Sin embargo, son escasas las métricas de análisis que logren captar la estructura mundial de la economía, manteniendo su complejidad. Al mantener una mirada de conjunto sobre el mercado mundial, los estudios tienden a concentrarse en medidas genéricas que difícilmente dan cuenta de las sutilezas existentes. Por su parte, el acceso a nuevas tecnologías para el análisis de datos constituye un aliciente para poder embeber al estudio de la economía mundial de la complejidad propia de su objeto de estudio. La teoría de grafos permite caracterizar las propiedades emergentes de una red a partir del estudio de sus características topológicas. 
+En este sentido, pensar a la economía mundial como una gran red compleja puede permitir un análisis pormenorizado del carácter mundial del comercio, sin detenerse necesariamente en un país en particular. El objetivo del presente trabajo es aportar un breve marco analítico del análisis de grafos, y su aplicación en el caso del comercio internacional, con las decisiones metodológicas que esto implica. Por su parte, se buscará dar interpretación de los resultados cuantitativos alcanzados, y obtener respuestas respecto del rol que juegan determinados países en el comercio internacional, las formas de relaciones comerciales que se producen, y los cambios en la estructura del grafo que se observan con la incorporación de China al mercado mundial.
+\\~\\
+\textbf{Palabras Clave:} grafos, economía internacional
+
+
+
+
+%\keywords{grafos|economía internacional}
+\end{abstract}
+
+
+\section{Introducción}
+
+El análisis del comercio internacional es una de las áreas de estudio más importantes de la investigación económica. Desde los comienzos de la economía política clásica constituye un tema de preocupación por sus fuertes implicancias \cite{ricardo1987principios}. Por su parte, el registro de la información referente al comercio entre países también se remonta en el tiempo.          
+
+Sin embargo, el análisis tradicional de la información generada carece de las herramientas necesarias para hacer frente a los grandes volúmenes de datos generados por el comercio internacional en la actualidad. Históricamente, los indicadores sintéticos del área se resumen en volumen y masa de dinero comerciada, partiendo del total mundial, hacia desagregaciones por región, país y sector económico en cuestión \cite{WTO2017}.                
+
+A la vez que aumenta el volumen de información persistida respecto del comercio internacional, también se facilita el acceso a técnicas de análisis de datos que requieren un mayor poder de cómputo, y que por lo tanto eran impensadas como herramientas de estudio en épocas anteriores. En este sentido, surge la posibilidad de complementar el análisis tradicional del comercio mundial con técnicas de mayor riqueza en términos cuantitativos. 
+
+El presente trabajo se propone utilizar las nuevas técnicas que provee el análisis de grafos para caracterizar el comercio internacional. Su modelización como una red compleja permite la construcción de medidas de resumen que, sin abandonar una mirada holística de la problemática, logren dar cuenta de una mayor complejidad que las métricas tradicionales de dicha área temática. 
+
+En la literatura reciente se realizaron diversos enfoques desde esta perspectiva, ya sea desde una mirada desde la teoría de la información \cite{Bhattacharya2008},  como una herramienta de modelización de los fenómenos económicos \cite{Fan2014}, para analizar las relaciones de centro-periferia \cite{Fagiolo2010}, o bien para realizar una descripción del estado del comercio internacional \cite{Chow2013}. Sin embargo, dada la amplitud de los temas a abordar, tanto desde la perspectiva económica, como desde la teoría de grafos, se presenta como un campo abierto para la investigación, con sendas aristas aún por recorrer.        
+
+Lo que resta del trabajo se divide de la siguiente manera: la sección siguiente describe las fuentes de información utilizadas y realiza un pequeño resumen de los elementos de la teoría de grafos utilizados en el presente trabajo, así como las particularidades que surgen al aplicar esta teoría al comercio internacional. Por su parte la sección tercera se enfoca en el grafo que surge de un año en particular, mientras que la cuarta incorpora la dimensión temporal del período 1997-2011 y analiza los cambios recientes de la economía mundial. La sección quinta se extiende una serie de largo aliento, 1948-2000, para realizar un análisis de los cambios estructurales de la economía con la Nueva División Internacional del Trabajo.
+En la sexta y última, se plantean algunas conclusiones y futuras lineas de investigación.
+
+\section{Metodología}
+
+\subsection{Fuentes de información}
+
+La modelización del comercio internacional como un grafo requiere de los datos del flujo anual de comercio bilateral para el total de las mercancías, para la mayor cantidad posible de países, idealmente todos ellos. Dado que los datos del comercio bilateral son realizados por cada país involucrado, es necesaria una base de datos en la cual se haya recolectado la información provista por cada país, y que a su vez haya sido consolidada frente a las posibles, y de hecho abundantes, contradicciones que se presentan entre los reportes oficiales de los países involucrados. En particular, dado que toda importación para un país es una exportación de otro, y que el registro de los datos se realiza de forma nacional, existe una duplicación formal de la información, que no siempre es coincidente. Por esto, se recurrió a una base previamente consistida por un organismo internacional oficial, la Organización Mundial del Comercio (de aquí en más OMC)\footnote{https://comtrade.un.org/}, y la API que dicho organismo provee para descarga de datos. La información analizada  en las secciones tercera y cuarta, del período 1997-2011, proviene dicho organismo.   
+
+Dado que la OMC establece límites para la extracción de la información se decidió acotar el alcance temporal del estudio al período 1997-2011.En particular, dado que el año 2011 es aquel para el que se cuenta mayor cantidad de información, se decidió realizar una primera parte del estudio sobre dicho año, para luego extender las conclusiones que de allí se desprendan hacia los demás años.
+\par
+
+El período analizado en la sección quinta, proviene del trabajo realizado por Gleditsch \cite{Gleditsch2002}, que también es utilizado en otros trabajos de modelización del comercio internacional mediante redes complejas \cite{Fagiolo2010}.
+
+\subsection{Construcción del grafo}
+
+Un grafo (o red) se define como un conjunto de nodos y aristas, donde cada nodo representa una entidad, mientras las aristas representan la existencia de una relación entre dos entidades. La representación algebraica del grafo se realiza mediante la denominada matriz de adyacencia, donde las filas representan los nodos de salida, mientras que las columnas representan el nodo de entrada. Por lo tanto, el elemento $a_{ij}$ de dicha matriz representa a la arista que va desde i hacia j.
+
+En el caso de las redes pesadas, una arista, $a_{ij} \in \mathbb{R}$, denota la intensidad de la relación entre los nodos $i$ y $j$. Por su parte, en las redes binarias, $a_{ij} \in \{0,1\}$ define cualitativamente la relación, dónde $a_{ij} = 1$ si existe la relación y $a_{ij} = 0$ sino. Este último tipo de grafos sera el utilizado para el presente trabajo, dado que se cuenta con una mayor cantidad de métricas para caracterizar los grafos de este tipo.      
+A su vez, las redes pueden ser tanto dirigidas como no dirigidas. En el primer caso, la relación no tiene un sentido definido, y por lo tanto $a_{ij} = a_{ji}$, mientras que en el segundo caso tal igualdad no es necesaria, y la presencia de una relación tiene un sentido definido. Si bien en la bibliografía existen autores que plantean que la simetría del intercambio comercial es fuerte, y por lo tanto no es necesario utilizar un grafo dirigido para su representación \cite{Fagiolo2007}, en el presente trabajo se sostiene que esto depende fuertemente de la forma de construcción de la red, en particular si se trabaja con un grafo no ponderado, y por lo tanto hay un riqueza interpretativa que se pierde si se utiliza una red no dirigida.       
+
+
+Sobre una red se puede calcular una serie de medidas de resumen que permiten caracterizarla. Éstas pueden referirse a un atributo propio del grafo, o bien de cada nodo o arista. Si bien las posibles métricas son muchas, en el presente trabajo nos limitamos a aquellas que se definen a continuación. \par    
+Dos nodos se dicen conectados si existe un recorrido entre ellos, es decir, una secuencia de aristas y nodos entre estos. De un grafo se dice que esta conectado, si todos sus elementos lo están. \par
+El diámetro $d_m$ de una red es la máxima distancia entre cualquier par de nodos. En teoría de grafos se considera la distancia entre un par de nodos como el camino más corto que se puede realizar entre éstos. Es decir, el diámetro de un grafo no pesado se considera como la cantidad de aristas que hay entre los dos elementos más lejanos del grafo, considerando el recorrido más corto entre ambos. 
+
+$$
+d_m = max(d_{uv})
+$$
+donde $d_{uv}$ es la distancia entre los nodos u y v, definida como:
+$$
+d_{uv} = min(L(P))
+$$
+con $P = (v_1, v_2, ..., v_n)$,un conjunto de n vértices, donde $v_i$ es adyacente a $v_{i+1}$, y siendo $L(P)$ la longitud del camino P, definida como:
+$$
+L(P) = \sum_{i=1}^{n} w_i
+$$
+En el caso de una red no ponderada, $w_i = 1$ y por lo tanto, la longitud de un camino es la cantidad de elementos que lo componen. \par
+La densidad $De_m$ de una red es la relación entre la cantidad de aristas de la red y la máxima cantidad de aristas potenciales de la misma. 
+
+$$
+De_m = \frac{|A|}{|V|(|V|-1)}
+$$
+
+Siendo $|A|$ el número de aristas y $|V|$ el número de vértices, o nodos, del grafo. $De_m \in [0,1]$. Aquellas redes con una densidad cercana a 0 se las considera dispersas, mientras que aquellas con una densidad cercana a 1 se las considera grafos densos. \par
+
+A su vez, existe una serie de medidas de centralidad de nodos que caracterizan la importancia de los mismos en la red. Las utilizadas en el presente trabajo son la intermediación, cercanía y autovalor. \par
+La centralidad de intermediación mide el rol de un nodo $i$, $C_{BET}(i)$, como puente entre los demás nodos, considerando sus caminos más cortos. Se define como:
+$$
+C_{BET}(i) = \sum_{j,k \neq i} \frac{b_{jik}}{b_{jk}}
+$$
+donde $b_{jk}$ son todos los caminos más cortos entre los nodos $j$ y $k$, y $b_{ijk}$ son los caminos más cortos entre $j$ y $k$, que pasan por $i$. \par
+La centralidad de cercanía es la distancia promedio que tiene un nodo con los demás nodos con los que esta conectado. Formalmente: 
+$$
+C_{cer}(i) = \frac{1}{\displaystyle \sum_{j \neq i} d_{i,j} }
+$$
+
+La centralidad de grado se define como la cantidad de aristas de un nodo. En el caso de los grafos dirigidos, se puede considerar un grado de entrada, así como un grado de salida, si las aristas van en dirección al grafo o desde el grafo, respectivamente.
+La centralidad de autovalor, por su parte, caracteriza la importancia de un nodo considerando la de sus nodos vecinos. Si asumimos linealidad:
+
+$$
+x_i'= \sum_{j=1}^{N} a_{ij}x_{j}
+$$
+$$
+x' = Ax
+$$
+Siendo A la matriz de adyacencia de la red. si $x'$ es el vector de centralidades de la red, entonces podemos plantear $Ax^* = \lambda x^*$ donde $x^*$ es la solución y  $\lambda$ es el autovalor asociado al mayor autovector.  Por lo tanto, podemos definir la medida de centralidad de autovalor como
+
+$$
+x_i^*=\frac{1}{\lambda}  \sum_{i} A_{ij}x_{j}^*
+$$
+
+Esta medida tiene la propiedad de considerar la importancia de un nodo a partir de la importancia de aquellos nodos con los que esta conectado, y con los que éstos están conectados, etc. En el presente trabajo también se considera a la centralidad de autovalor ponderado como una alternativa, donde el peso esta definido por el volumen de dinero comerciado entre los países. Para calcularlo, se multiplica la matriz de adyacencia por una matriz de pesos. Por lo tanto
+
+$$
+x_i^{pond}=\frac{1}{\lambda}  \sum_{i} WA_{ij}x_{j}^{pond}
+$$
+
+Estas medidas de centralidad pueden ser resumidas para el grafo en su conjunto mediante una agregación de algún tipo, como el promedio, máximos y mínimos, etc. En el presente trabajo se utilizan de ambas maneras, tanto para definir la importancia de un país en particular en el grafo, como para caracterizar a la red en su conjunto.
+\par
+
+El Coeficiente de clustering estima la cohesividad local, midiendo la probabilidad de que dos nodos que comparten un vecino estén conectados. Para calcularlo, se mide en primer lugar el grado de agrupamiento de cada nodo, tomando la vecindad del mismo, es decir, todos aquellos nodos con los que esta conectado, y se calcula el cociente entre las aristas existentes y la máxima cantidad de aristas posibles:
+
+$$
+C_i = \frac{|A_i|}{|V_i|(|V_i|-1)}
+$$
+siendo $|A_i|$ las aristas en el subgrafo de la vecindad de i, y $|V_i|$ los vértices del subgrafo de la vecindad de $i$. Nótese que esta medida no representa lo mismo que la densidad, si bien las ecuaciones sean similares, dado que en el clustering se analiza solamente la vecindad de un nodo, mientras que la densidad se refiere a toda la red.
+Si quisiéramos caracterizar a toda la red según el coeficiente de clustering, podemos calcular el promedio del mismo para todos los nodos, también conocido como transitividad del grafo, que se define como el promedio del grado de agrupamiento de los nodos. Es decir:
+
+$$
+\Bar{C} = \frac{1}{n} \sum_{i} C_{i}
+$$ 
+
+
+Por último, también se considera la correlación de grado entre las aristas. Esta se calcula como la correlación de Pearson entre el grado de nodos adyacentes. Si la correlación es fuerte y positiva, esto implica que la red es de tipo selectiva, lo que indica que los nodos de mayor grado tienden a conectarse con otros nodos de mayor grado. Si la correlación es negativa y fuerte, esto indica que la red es no selectiva o heterogénea, lo que implica que los nodos más importantes de la red tienden a conectarse con nodos poco centrales. 
+
+
+\subsection{Software utilizado}
+
+Para el presente trabajo se utilizó el lenguaje de programación estadística \texttt{\textbf{R}}\cite{RCoreTeam2017}, junto con sendas extensiones del mismo. Aquellas que resulta importante mencionar son \texttt{igraph}\cite{Csardi2006} para la construcción de los grafos y las medidas de resumen de los mismos; \texttt{tidyverse}\cite{Wickham2017} para la manipulación de la información y elaboración de los gráficos. Para esto último, también se hizo uso de  \cite{Wilke2017,Arnold2017,Neuwirth2014,Slowikowski2017,Vu2011}, como complementos de \texttt{ggplot}. Por su parte, los códigos de los países provienen de \cite{Arel-Bundock2017}.
+
+\subsection{El comercio internacional como una red compleja}
+
+La modelización del comercio internacional como un grafo conlleva una serie de simplificaciones de la información original. Nos encontramos en primer lugar que toda compra es a su vez una venta, y que por lo tanto la información se puede interpretar de ambas maneras. Por su parte, dado que lo que se busca representar es existencia de un vínculo comercial entre dos países, considerar toda compra o toda venta como la existencia de éste vínculo resultaría exagerado. Por lo tanto, es necesario establecer un punto de corte a partir del cual se considere que existe una relación comercial entre la dupla de países en cuestión. Sin embargo, tal punto de corte no se debe considerar en término absolutos, como el monto comerciado, ya que dicho monto esta sumamente determinado por el tamaño de los países en cuestión. En otros términos, una determinada masa de dinero es significativa para un país en función del valor total comerciado por el mismo. Por lo tanto, es necesario considerar el umbral en términos relativos respecto al tamaño de los mismos.
+
+En este punto se abre una serie de consideraciones respecto al denominador a utilizar. Si se normaliza por el tamaño de la economía, el Producto Bruto Interno (PBI), se está considerando no sólo la importancia relativa de ese vínculo comercial respecto del total comerciado, sino también el grado de apertura de dicha economía. En ese sentido, si se quisiera analizar el rol de un país en el comercio internacional, independientemente del tamaño real de su economía, lo más correcto es normalizar por el volumen total comerciado, y no por su PBI. De esta forma, se puede considerar un punto de corte como un tanto por ciento de las importaciones o exportaciones del país que reporta la transacción.
+
+Dado que se considera que la información de las importaciones suele ser más confiable que la de las exportaciones\cite{Fan2014}, en el presente trabajo se utiliza en la generalidad de los casos el punto de corte como un porcentaje del total de las importaciones del país importador. No obstante, dada la construcción de dicho punto de corte, la interpretación de los resultados varía. Si se utiliza la información provista por el importador, la dirección de la arista resultante es desde el importador hacia el exportador, el sentido contrario al de las mercancías, es decir, el sentido del dinero. Esta arista sólo existe sí resulta significativa para el país importador.     
+
+Podemos entonces, utilizar un grafo binario dirigido. Dados N países, definimos la matriz de adyacencia NxN, dónde:
+
+$$
+a_{ij} = 
+ \begin{cases} 
+      1 & si \frac{x_{ij}}{x_{i\cdot}}\geq u \\
+      0 & sino 
+  \end{cases}
+$$
+
+Donde $u$ representa el umbral elegido, y $x$ representa el volumen comerciado.   
+Para el caso de las importaciones, $x_{ij}$ representa el monto total comerciado desde el país $j$ hacia el país $i$, mientras que $x_{i\cdot}$ representa el total de las importaciones del país $i$. En el grafo de exportaciones, al contrario, $x_{ij}$ representa el monto total comerciado desde el país $i$ hacia el país $j$, mientras que $x_{i\cdot}$ representa el total exportado por el país $i$.          
+
+Dado que la restricción se construye por la importancia relativa para el nodo de origen, en general sólo existirá una pequeña cantidad de aristas que salgan de cada nodo, aunque no están limitadas las aristas en dirección hacia el nodo. Más precisamente, la máxima cantidad posible de aristas de salida es igual a $\frac{1}{u}$. Esta cantidad se obtiene sólo cuando el país comercia de forma uniforme con exactamente $\frac{1}{u}$ países. Como se verá más adelante, la distribución del comercio dista mucho de ser uniforme, por lo cual la cantidad de aristas de salida de un nodo se verá fuertemente limitada. Sin embargo, las aristas de entrada al nodo sólo se limita formalmente por la cantidad de nodos en el grafo. 
+
+Por lo tanto, para el grafo de importaciones, cuando se consideren medidas de centralidad de los nodos, se deberá considerar en particular las aristas que están dirigidas en dirección al nodo, y éstas marcaran la importancia de tal nodo como un país productor del mercado mundial, ya que lo que se esta midiendo es si los productos que exporta dicho país resultan significativos o no considerados en las importaciones de los demás países. Por su parte, si se consideran los datos provistos por los países exportadores, las medidas de centralidad de los nodos, estarán reflejando la importancia de tal país como consumidor global, ya que su consumo resulta significativo como exportación para los países que le venden dichas mercancías. 
+Dado que, por la forma de construcción de los grafos, resulta distinta la interpretación de la información de las exportaciones y las importaciones, se considerarán alternativamente ambas redes según qué resulte más interesante. 
+
+
+
+\section{Representación del comercio internacional del año 2011 en un grafo dirigido}
+
+En primer lugar, analizamos la frecuencia de las interacciones entre países en función de su valor comercial y la proporción del comercio que representan para el país importador. Ambas distribuciones tienen una asimetría a derecha, similar a una chi-cuadrado. En la figura \ref{fig:Interacciones-1} se puede observar que si bien la gran mayoría de las relaciones bilaterales de comercio representan una baja proporción de las importaciones de un determinado país, existen ciertas relaciones comerciales que se podrían caracterizar como de alta dependencia para el país importador. En particular, Estados Unidos y Sudáfrica venden mercancías a países como las Bahamas, Namibia, etc. que representan más de un 75\% del total de las mercancías que reciben estos países del resto del mundo, por lo que dicha relación comercial es para estos países decisiva para poder consumir ciertos productos. Sin embargo, dichas relaciones comerciales no son necesariamente importantes para Estados Unidos o Sudáfrica, estableciendo una relación asimétrica entre estos pares de países.
+
+
+\begin{figure}
+\centering
+\subfigure[Según porcentaje de impo. que representa al país importador]{\label{fig:Interacciones-1}\includegraphics[width=\linewidth]{2011_freq_interacciones_3}}
+\subfigure[Según valor comercial]{\label{fig:Interacciones-2}\includegraphics[width=\linewidth]{2011_freq_interacciones_0}}
+\caption{\textbf{Frecuencia de interacciones}. Importaciones, 2011}
+\label{fig:Interacciones}
+\end{figure}
+
+
+
+
+Por su parte, en la figura \ref{fig:Interacciones-2} se puede apreciar una distribución similar en lo que respecta a los montos comerciados. Dado que esta expresado en términos absolutos, aquellas interacciones de mayor valor resultan de importancia para ambos polos de la relación. En particular, China aparece como un país con las relaciones comerciales de mayor volumen. A su vez, se observa que las relaciones comerciales de África no aparecen en la figura por estar truncada para los primeros bins, lo cual indica que los montos comerciados por dichos países, a pesar de representar una proporción muy grande en ciertos casos como se observó en la figura \ref{fig:Interacciones-1}, son igualmente bajos respecto del resto del comercio mundial.
+
+
+\subsection{Determinación del punto de corte}
+
+
+Para establecer un porcentaje de las importaciones como punto de corte para construir el grafo no ponderado se procedió construyendo grafos con un umbral entre 0 y 0.5, con incrementos de 0.01, para luego calcular distintas métricas que caracterizan al grafo, y buscar aquel punto en que se marque una inflexión. En particular, se calculo si es un grafo conectado, el diámetro, la densidad, el número de aristas, la intermediación promedio y máxima, la cercanía promedio, el grado promedio, el autovalor promedio y el autovalor promedio ponderado por el valor comercial de la interacción, el coeficiente de clustering y la correlación de grado entre las aristas.
+
+Los resultados arrojaron que el grafo resultante nunca es fuertemente conectado, aunque es débilmente conectado hasta un umbral de 10\%. 
+Como se observa en la figura \ref{fig:centralidad_2011-1}, el autovalor medio de la red disminuye fuertemente al considerar un punto de corte del 1\%, y luego el descenso es más moderado. Lo mismo ocurre con el coeficiente de clustering, número de aristas y grado medio de la red. Por su parte, la figura \ref{fig:centralidad_2011-2} muestra como intermediación promedio de la red tiene un máximo en el 1\%, para luego descender. Otras medidas, sin embargo, como la cercanía promedio, la intermediación máxima, el diámetro de la red o la correlación de grado, no muestran un comportamiento tan claro.
+
+\begin{figure}
+\centering
+\subfigure[Autovalor medio de la red]{\label{fig:centralidad_2011-1}\includegraphics[width=0.45\linewidth]{2011_autovalor_medio_x_threshold}}
+\subfigure[Intermediación promedio de la red]{\label{fig:centralidad_2011-2}\includegraphics[width=0.45\linewidth]{2011_mean_betweenness_x_threshold.png}}
+\caption{\textbf{Medidas de centralidad}. Importaciones, 2011}
+\label{fig:centralidad_2011}
+\end{figure}
+
+
+Por ello, se decidió utilizar como referencia el 1\% para establecer el punto de corte, a la vez que se consideran otros umbrales alternativos para ciertos análisis particulares.
+
+En la figura \ref{fig:grafo_2011} se presentan los grafos para distintos puntos de corte que pueden resultar de interés.
+
+
+\begin{figure}
+\centering
+\subfigure[1\%]{\includegraphics[width=0.45\linewidth]{grafo_2011_1_pcnt}}
+\subfigure[5\%]{\includegraphics[width=0.45\linewidth]{grafo_2011_5_pcnt}}
+\subfigure[10\%]{\includegraphics[width=0.45\linewidth]{grafo_2011_10_pcnt}}
+\subfigure[15\%]{\includegraphics[width=0.45\linewidth]{grafo_2011_15_pcnt}}
+\subfigure[20\%]{\includegraphics[width=0.45\linewidth]{grafo_2011_20_pcnt}}
+\subfigure[25\%]{\includegraphics[width=0.45\linewidth]{grafo_2011_25_pcnt}}
+\caption{\textbf{Grafos. 2011, según punto de corte}}
+\label{fig:grafo_2011}
+\end{figure}
+
+
+En los grafos representados se puede observar como hasta un punto de corte del 10\% la red se mantiene unida, aunque disminuye la cantidad de nodos. A partir de este punto, la red deja de estar débilmente conectada y, a la vez que sigue disminuyendo la cantidad de nodos, se observa mejor la importancia de ciertos nodos de alto grado. En particular, uno del continente americano (Estados Unidos) y otro del continente africano (Sudáfrica).
+
+
+\subsection{Correlación entre la representación de las exportaciones y las importaciones}
+
+Por su parte, dada la potencial diferencia en el análisis si se tiene en cuenta las exportaciones y las importaciones, se incorporó esta disyuntiva como una nueva dimensión de estudio. Para ello, se analizó el grado total de cada nodo, para sucesivos puntos de corte, tanto para el grafo que surge de considerar las exportaciones, como para el grafo de las importaciones. En la figura \ref{fig:corr} se pueden observar los resultados. Vale mencionar que sólo se grafican los nodos de mayor grado, aunque se haya considerado al conjunto de nodos para el calculo de la tendencia lineal por país y el coeficiente de correlación de Pearson.
+
+
+\begin{figure}
+\centering
+\subfigure[1\%. Coeficiente de Pearson = 0.95]{\includegraphics[width=0.9\linewidth]{corr_grados_2011_1_pcnt}}
+\subfigure[10\%. Coeficiente de Pearson = 0.89]{\includegraphics[width=0.9\linewidth]{corr_grados_2011_10_pcnt}}
+\subfigure[20\%. Coeficiente de Pearson = 0.9]{\includegraphics[width=0.9\linewidth]{corr_grados_2011_20_pcnt}}
+\caption{\textbf{Grado total.} Multigrafo exportaciones e importaciones. Año 2011}
+\label{fig:corr}
+\end{figure}
+
+
+La correlación entre los grafos resultantes oscila entre el 0.84 y 0.95 si se consideran puntos de corte de entre el 1\% y el 25\%, por lo que se puede considerar que al observar las importaciones no se pierde demasiada información.
+
+Sin embargo, surgen algunas diferencias interesantes. La regresión lineal para cada continente, muestra el diferente rol de éstos en el mercado mundial, donde Asia se presenta en el rol de productor de mercancías, mientras que Europa lo hace como un gran consumidor del mercado mundial. El caso americano tiene por un lado el rol preponderante de Estados Unidos, con un comportamiento similar al de Europa (con independencia del umbral del 0.25), mientras que el resto del continente, junto con Oceanía y África, juegan un rol secundario. En el caso europeo, se observa como Rusia tiene un comportamiento más acorde al continente asiático, mientras que en este último se destacan en particular China y Singapur como grandes productores.      
+
+Sin embargo, el rol de cada país varía también respecto al umbral considerado. En el caso de Japón, en puntos de corte bajos, donde hay relaciones comerciales de importancia moderada para los países, se presenta jugando un rol de productor más que de consumidor, incluso más que la media asiática. A medida que se aumenta el punto de corte, y por lo tanto se consideran exclusivamente relaciones de carácter más dependiente, Japón se presenta como un país consumidor, incluso más que los países europeos. Esta transición estaría indicando que Japón, productor de productos industriales y tecnológicos, provee a muchos países del mundo de este tipo de mercancías, aunque éstos no dependen en su consumo de Japón, mientras que como consumidor de materias primas, este país establece relaciones comerciales con países que sí dependen de Japón para poder colocar sus mercancías. En el caso de China se puede observar algo similar, aunque de forma más moderada. Más interesante aún, a medida que se consideran relaciones de tipo más dependiente, aparece como destacado el rol de Estados Unidos, relegando a los países europeos y asiáticos. Por su parte, también surge Sudáfrica como un jugador importante del mercado mundial, cuando se consideran este tipo de relaciones de mayor dependencia. Esto implica que estos dos países tienen una forma de interacción en el mercado mundial marcadamente diferente a la de los países europeos y asiáticos.       
+
+Por último, en la figura \ref{fig:corr} también se puede observar el leverage de las los países con mayor apalancamiento para la regresión del grado de las exportaciones respecto del de las importaciones, sin diferenciar por continente. Cuando se considera un punto de corte del 1\%, China tiene el mayor leverage, con un valor bastante mayor que Estados Unidos, aunque relativamente bajo en términos absolutos. Sin embargo, a medida que se consideran puntos de corte más altos, Estados Unidos se constituye como el país con mayor apalancamiento en la regresión, a la vez que el valor aumenta fuertemente.      
+
+En la tabla \ref{Table: Tabla1} se presenta el top 5 de países de mayor centralidad de grado para el 2011, en el grafo de importaciones y en el de exportaciones.
+
+\begin{table}
+\centering
+\caption{}
+\label{Table: Tabla1}
+\begin{tabular}{l|lc|lc|}
+ & \multicolumn{2}{l|}{Grafo Importaciones} &  \multicolumn{2}{l|}{Grafo Exportaciones} \\
+ Orden &           País &          G \degree  entrada &           País & G \degree  entrada          \\
+ \hline
+  1\degree &           CHN &          155 &           USA & 126         \\
+  2\degree &           USA &          149 &           NLD & 106         \\
+  3\degree &           DEU &          129 &           GBR & 104         \\
+  4\degree &           JPN &          124 &           CHN & 103         \\
+  5\degree &           FRA &          112 &           DEU & 101        
+\end{tabular}
+\end{table}
+
+La tabla \ref{Table: Tabla1} muestra como China, Estados Unidos y Alemania son nodos de una centralidad importante, tanto como consumidores, como en su rol de productores. Sin embargo, China se destaca más en este último sentido que en el primero. Por su parte, Estados  Unidos marca una importante hegemonía como consumidor respecto de los demás países, aunque no conserva tal preponderancia como productor global. 
+
+
+\section{Análisis 1997-2011}
+
+Lo que resta del análisis se considerará exclusivamente el punto de corte del 1\%, incorporando la dimensión temporal. Para esto, se estudiará en primer lugar el movimiento de algunas medidas de resumen a lo largo del tiempo, para luego analizar la distribución de ciertas medidas de centralidad y el cambio en el rol de los nodos centrales en durante el período.
+
+
+\subsection{Medidas de resumen de la red}
+
+En la figura \ref{fig:caracteristicas_yr} se presentan los valores de algunas medidas de resumen entre el período de 1997 y 2011, considerando un punto de corte del 1\% para las importaciones. 
+
+
+
+\begin{figure}
+\centering
+\subfigure[Correlación de grado]{
+	\includegraphics[width=.45\linewidth]{correlacion_x_yr}
+	\label{fig:caracteristicas_yr-a}}
+\subfigure[Coeficiente de clustering]{
+    \includegraphics[width=.45\linewidth]{coef_clustering_x_yr}
+    \label{fig:caracteristicas_yr-b}}
+\caption{\textbf{Importaciones.} umbral 1\%, según año}
+\label{fig:caracteristicas_yr}
+\end{figure}
+
+
+Como se puede observar, las características topológicas del grafo varían fuertemente en el período 2007-2009, durante la gran recesión económica, que se caracterizó por un aumento en el proteccionismo económico de ciertos países centrales, reflejado en el “Buy American”\footnote{http://edition.cnn.com/2009/POLITICS/02/05/senate.buy.american/index.html} o “Buy China” \footnote{https://economix.blogs.nytimes.com/2009/06/29/buy-china/}. 
+
+La figura \ref{fig:caracteristicas_yr-a} muestra la caída de la correlación de grado en el año 2007, que implica una transición circunstancial hacia una economía menos selectiva. Es decir, un comercio internacional donde aumentan las relaciones de nodos de mayor grado con nodos de menor grado, respecto de las relaciones entre nodos de similar magnitud.            
+
+Por su parte, la figura \ref{fig:caracteristicas_yr-b} muestra como el coeficiente de clustering tiene una tendencia decreciente hasta 2008, para luego comenzar a crecer nuevamente. Esto se puede interpretar como una de-segmentación del comercio internacional hasta la crisis, con al cual comienza un proceso de re-segmentación. \par
+
+\subsection{Distribución de los nodos}
+
+A continuación se presenta la distribución de los nodos según ciertas medidas de centralidad a lo largo de los años, destacando aquellos países con mayores valores de centralidad. 
+
+
+\begin{figure}
+\centering
+\subfigure[Grado, importaciones]{
+    \includegraphics[width=.8\linewidth]{impo_densidad_degree_x_yr}
+    \label{fig:distribuciones-a}}
+
+\subfigure[Autovalor, exportaciones]{
+    \includegraphics[width=.8\linewidth]{expo_densidad_autovalor_x_yr}
+    \label{fig:distribuciones-b}}
+
+\subfigure[Autovalor ponderado, exportaciones]{
+    \includegraphics[width=.8\linewidth]{expo_densidad_USAvsCHN_autovalor_pond_x_yr}
+    \label{fig:distribuciones-c}}
+    
+\caption{Distribución medidas de centralidad según año. umbral 1\%}
+\label{fig:distribuciones}
+\end{figure}
+
+
+En primer lugar, lo que se observa en la figura \ref{fig:distribuciones} es que la distribución de los nodos de acuerdo a las distintas medidas de centralidad no varía sustancialmente de año en año, ni en su rol como consumidores globales, ni en su rol como productores globales. Por su parte en \ref{fig:distribuciones-a} se observa la distribución de grado de los nodos del grafo de importaciones, donde se ve como los tres países de mayor grado tienden a alejarse del centro de masa de la distribución. Este podio se disputa entre Alemania, Japón, Estados Unidos y, a partir del 2002, China, quien a su vez tiende a alejarse de éstos posteriormente. Por su parte, la figura \ref{fig:distribuciones-b} marca el rol de consumidores globales. Aquí, mientras hasta 2007 Estados Unidos y Gran Bretaña ocupan los lugares principales en la centralidad de autovalor, a partir de este año comienza a tener un rol más destacado Francia, los países bajos, y luego China.      
+
+Es de resaltar el aumento en la centralidad de China para el comercio internacional, tanto como productor como consumidor. En particular, este país desplaza a Estados Unidos de ser el nodo de mayor centralidad en muchas medidas. Por ejemplo, la figura \ref{fig:distribuciones-c} para el caso del autovalor ponderador por el valor del intercambio, Estados Unidos ocupa el primer lugar hasta el año 2006, para luego ser reemplazado por China, un país que diez años antes tenía un valor de centralidad cuatro veces menor al de Estados Unidos. En ese mismo año China también pasa a ocupar el primer lugar en dicha métrica para el grafo de las importaciones. La medida de centralidad del autovalor es particularmente relevante, sobretodo todo ponderada por el valor de las transacciones, porque considera no sólo la importancia del nodo, sino también la importancia de aquellos nodos con que se relaciona. En este sentido, se destaca el rol de México, Japón, Canadá, junto con China y Estados Unidos como grandes productores mundiales, a la vez que aparece, sobre los últimos años, Corea como una nueva potencia en este aspecto.  
+
+\section{Análisis de largo plazo}
+
+Otro análisis que resulta interesante es la evolución de la red en un período de largo plazo. Esto nos permite encontrar los cambios estructurales del comercio internacional, a la vez que da cuenta de qué elementos de la topología de la red son robustos, y cuales contienen una tendencia histórica. 
+Para esto, tomamos la serie elaborada por Gleditsch \cite{Gleditsch2002}, que reúne información del comercio internacional entre 1948 y 2000. 
+A continuación se analizan los elementos estructurales de la red, para luego analizar la evolución de algunos países seleccionados dentro del grafo
+
+\subsection{Estructura de la red}
+
+Como se observa en la figura \ref{fig:metricas_LP}, en la red ocurren importantes cambios en el período que va de 1948 al año 2000. 
+La figura \ref{fig:metricas_LP-a} muestra la evolución del coeficiente de clustering de la red. Este, como se mencionó previamente, indica la tendencia de la red a formar vecindarios bien delimitados. La fuerte caída durante las décadas del cincuenta y sesenta reflejan la nueva división internacional del trabajo, en dónde las relaciones comerciales se alejan del regionalismo, y el comercio inter-continental aumenta en volumen. En concreto, esta expresando la incorporación de Asia como productor de mercancías para el mercado mundial. 
+\par
+La figura \ref{fig:metricas_LP-b} muestra la evolución del coeficiente de correlación de grado. Este indica el grado de homofilia de la red, es decir, la tendencia de los nodos de mayor grado a conectarse con otros nodos de similares características. Recordemos que al tomar valores negativos, esta correlación indica una tendencia de los países de mayor grado a relacionarse con países de menor grado. La caída de este valor en las décadas del cincuenta y sesenta expresa un incremento en esta característica de la red.  
+
+\begin{figure}[h!]
+	\centering
+	\subfigure[Coeficiente de Clustering, importaciones]{\label{fig:metricas_LP-a}\includegraphics[width=.48\linewidth]{1950_2000_coef_clustering_x_yr}}
+	\subfigure[Correlación de grado, importaciones]{\label{fig:metricas_LP-b}\includegraphics[width=.48\linewidth]{1950_2000_correlacion_x_yr}}
+	\caption{Evolución de la estructura de la red. Impo. Umbral 1\%}
+	\label{fig:metricas_LP}
+\end{figure}
+
+Estas medidas refieren a características generales del grafo. También es posible analizar, dentro del grafo, el movimiento en la centralidad de subconjuntos del mismo. En particular, en la figura  \ref{fig:centralidad_LP} se muestra la evolución de la centralidad promedio por continente para las medidas de autovalor, cercanía y grado. En primer lugar, resalta la robustez de la centralidad de cercanía, que evoluciona uniformemente para todos los continentes. La disminución de esta medida indica un crecimiento del tamaño de la red \footnote{ Que parcialmente puede deberse a la incorporación de nuevas fuentes de información, en particular para los años 1949, 1960 y 1991}. \par
+La centralidad de autovalor, por su parte, muestra un cambio importante en el rol de los países en la economía mundial. Mientras que Oceanía pasa del segundo al quinto lugar en el período, Asia hace lo opuesto, marcando la incorporación al mercado mundial de este continente como productor de mercancías.  Africa y América, por su parte, si bien siguen un distinto recorrido a lo largo del período, comienzan y terminan el mismo con valores muy similares. Europa mantiene la mayor centralidad promedio a lo largo de todo el período, en las tres métricas. Por último, el recorrido de Asia y Oceanía es similar para la centralidad de grado.
+
+\begin{figure}[h!]
+	\centering		\includegraphics[width=\linewidth]{1950_2000_continent_all}
+	\caption{Evolución de la centralidad promedio por contiente. Impo. Umbral 1\%}
+	\label{fig:centralidad_LP}
+\end{figure}
+
+\subsection{Evolución de los países}
+
+Otra característica interesante del análisis de grafos es que permite seguir la evolución de un país en particular dentro del mismo, de forma tal que se puede observar la evolución de la centralidad de algunos nodos en el tiempo. \par
+En la figura \ref{fig:paises_LP} se muestra la distribución de las medidas de grado y de autovalor ponderado, y se marca la posición de México Brasil y Argentina en dicha distribución. 
+En \ref{fig:paises_LP-a} observamos la cantidad de conexiones de cada país en el grafo de las importaciones. Aquí se observa como México comienza la serie en la moda de la distribución de grado, mientras que Brasil y Argentina se encuentran a la derecha de la misma. En la evolución se vé como la distribución se convierte en más leptocúritca, y, por un lado Brasil incrementa la cantidad de nodos considerablemente, mientras que por otro lado Argentina mantiene a lo largo de toda la serie la misma cantidad de socios comerciales. Por su parte, México, pasa a ubicarse en la cola derecha de la distribución, más cercano a la Argentina. 
+En \ref{fig:paises_LP-b} se observa el autovalor ponderado por el volumen comerciado. Considerando esta medida, la evolución pareciera ser diferente. Mientras Argentina se mantiene en el mismo lugar de la distribución, Brasil se repliega hacia valores similares a los Argentinos, y México se despega de la moda de la distribución a partir de los años noventa. Al considerar no solo el grado, sino también el grado de los vecinos, y el volumen comerciado, se destaca el proceso de la \textit{Maquila Mexicana}, en dónde el comercio entre este país y Estados Unidos, un nodo sumamente importante, es muy difundido. 
+
+\begin{figure}[h!]
+	\centering
+	\subfigure[Grado]{\label{fig:paises_LP-a}\includegraphics[width=0.48\linewidth]{1950_2000_impo_densidad_ARG_BRA_MEX_grado}}
+	\subfigure[Autovalor Ponderado]{\label{fig:paises_LP-b}\includegraphics[width=0.48\linewidth]{1950_2000_impo_densidad_ARG_BRA_MEX_atvlrpnd}}
+	\caption{Argentina, Brasil y México. Impo. Umbral 1\%}
+	\label{fig:paises_LP}
+\end{figure}
+
+
+Por último, resulta interesante complementar el análisis de la figura \ref{fig:distribuciones-c}, dónde se veía como China supera a Estados Unidos en ciertas medidas de centralidad para el año 2006, con un análisis de dicha relación en el período de 1950 a 2000. Para ello, en la figura \ref{fig:paises_ASI_LP-a} se observa la distribución de la centralidad de autovalor, y el detalle de estos dos países. \par
+En todo el período se observa la predominancia de Estados Unidos como un nodo central del grafo. China, por su parte, comienza en la moda o incluso en la cola izquierda de la distribución. Para luego ubicarse del lado derecho de la misma, entre los sesentas y setentas, aunque aún con valores relativamente bajos. A partir de la década del ochenta, comienza, de forma lenta pero acelerada, a escalar posiciones de mayor centralidad dentro de la red. 
+Por su parte, en la figura \ref{fig:paises_ASI_LP-b} se observa la evolución de China junto a Corea y Japón. Aquí se puede ver como no es solo China quién aumenta la centralidad en el grafo, sino Asia en su conjunto. Japón lo hace primero, desde el comienzo de la serie, en los cincuentas, y llega a valores cercanos a 1, el máximo valor posible de esta medida, para los ochentas. Por su parte, Corea también sigue el mismo camino, aunque comienza más tarde, y desde una posición de menor centralidad que los otros países. 
+
+\begin{figure}[h!]
+	\centering
+	\subfigure[China y Estados Unidos]{\label{fig:paises_ASI_LP-a}\includegraphics[width=0.48\linewidth]{1950_2000_impo_densidad_USAvsCHN_autovalor_x_yr}}
+	\subfigure[Japón,Corea y China]{\label{fig:paises_ASI_LP-b}\includegraphics[width=0.48\linewidth]{1950_2000_impo_densidad_CHN_JPN_ROK_atvlr}}
+	\caption{Autovalor. Impo. Umbral 1\%}
+	\label{fig:paises_ASI_LP}
+\end{figure}
+
+
+\section{Conclusiones}
+
+En el presente trabajo se propuso la utilización de la teoría de grafos como una herramienta para la caracterización del comercio internacional. Para ello se construyó un grafo dirigido no ponderado.  Se utilizó al año 2011 como punto de referencia para determinar ciertos elementos necesarios para la construcción del modelo, como el punto de corte, de donde resultó que el 1\% constituye un umbral posible, aunque considerar este hiperparámetro como una dimensión de análisis también permite observar las distintas formas de relación comercial entre los países, y por lo tanto se logra enriquecer la discusión. 
+\par
+Por su parte, la dimensión temporal en un período de veinte años mostró que las medidas de resumen de un grafo pueden poseer un potencial para la descripción de la crisis del año 2009. El análisis de una serie de largo alcance, por su parte, permite ver los cambios estructurales del comercio internacional.            
+
+Se observó también que la distribución de las medidas de centralidad no pareciera variar en el mediano plazo, aunque sí existe un movimiento visible en los actores principales de la red, lo cual muestra una riqueza en el análisis para describir los cambios de la economía mundial, y los roles cambiantes que en esta juegan los distintos recortes nacionales. 
+
+Finalmente, el trabajo realizado deja una contradicción planteada respecto del rol de ciertos países como consumidores, y de otros como productores, dado que tal estructura no sería sostenible de forma prolongada. En este sentido, es necesario complementar el presente análisis del flujo del comercio de mercancías, con la contraparte correspondiente al flujo de internacional de servicios y de capital, a la vez que se deben considerar las cadenas globales de valor, y la producción de bienes, en particular de diseño y alto valor agregado, que no se comercian directamente en el mercado mundial, sino que constituyen transferencias internas dentro de las empresas transnacionales.
+
+
+\bibliographystyle{unsrt}
+\bibliography{bibliografia}
+
+\end{document}
+

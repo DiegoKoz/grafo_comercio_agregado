@@ -67,12 +67,12 @@ trade_to_graph <- function(edges, threshold_pct = .01) {
 
 
 
-countrycode_data <- codelist
+
 
 ##### Datasets #####
 dataset <- readRDS('Dataset/dataset_COMTRADE_2011.rds')
 dataset <- dataset %>% select(rt3ISO,pt3ISO,rtTitle,ptTitle,TradeValue)
-dataset <- left_join(dataset,countrycode_data 
+dataset2 <- left_join(dataset,countrycode_data 
                       %>% select(rt3ISO=iso3c, continent, country.name.es)) %>% 
   na.omit(.)
 
@@ -302,7 +302,8 @@ ggsave("graficos/2011_correlacion_grado_x_threshold.png")
 ### representación grafo 2011
 
 
-grafico_grafo <- function(threshold_pct, save = TRUE, datos = dataset2, label = FALSE){
+grafico_grafo <- function(threshold_pct, save = TRUE, datos = dataset2, label = FALSE, layout="NA"){
+  
       lista_grafo <- trade_to_graph(edges = datos, threshold_pct = threshold_pct)
       
       grafo <- lista_grafo$grafo
@@ -319,41 +320,101 @@ grafico_grafo <- function(threshold_pct, save = TRUE, datos = dataset2, label = 
       V(grafo)$continente <- correspondencia$continent
       V(grafo)$color <- correspondencia$color
       E(grafo)$edge.color <- "gray80"
-      l <-layout.graphopt(grafo)
-      if (save) {
-        if (label) {
-            png(paste0("graficos/","grafo_2011_",threshold_pct*100,"_pcnt.png"))
+      trade <- E(grafo)$TradeValue
+      width <- (trade-min(trade))/(max(trade)-min(trade))*10
+      E(grafo)$width <- width
+      
+      if (layout == "circle") {
+        l <-layout_in_circle(grafo, order = order(V(grafo)$continente,V(grafo)))
+        V(grafo)$size <- log(degree(grafo)+1)*3
+        if (save) {
+          if (label) {
+            png(paste0("graficos/","grafo_Circ_2011_",threshold_pct*100,"_pcnt.png"))
             plot(grafo,edge.arrow.size=.2,vertex.frame.color="#ffffff",
+                 vertex.label="", vertex.label.color="black", 
+                 layout=l,edge.width=E(grafo)$width, edge.curved=.1, main= paste0("\n 2011, Threshold ", threshold_pct*100,"%"))
+            legend(x=-1.5,  y=1.5,unique(correspondencia$continent),
+                   pch=21,col="#777777",pt.bg=unique(correspondencia$color),
+                   pt.cex=2,cex=1,bty="n",ncol=5)
+            
+          }
+          else{
+            png(paste0("graficos/","grafoCirc_2011_",threshold_pct*100,"_pcnt.png"))
+            plot(grafo,edge.arrow.size=.2,vertex.frame.color="#ffffff",
+                 vertex.label="", vertex.label.color="black", 
+                 layout=l,edge.width=E(grafo)$width, main= paste0("2011, Threshold ", threshold_pct*100,"%"))
+          }
+          dev.off()
+        }
+        else{
+          if (label) {
+            plot(grafo,edge.arrow.size=.2,vertex.frame.color="#ffffff",
+                 vertex.label="", vertex.label.color="black", 
+                 layout=l,edge.width=E(grafo)$width)#, main= paste0("Grafo año 2011, punto de corte de ", threshold_pct*100,"%"))
+            legend(x=-2,  y=1.5,unique(correspondencia$continent),
+                   pch=21,col="#777777",pt.bg=unique(correspondencia$color),
+                   pt.cex=2,cex=.75,bty="n",ncol=5)
+            
+          }
+          else{
+            plot(grafo,edge.arrow.size=.2,vertex.frame.color="#ffffff",
+                 vertex.label="", vertex.label.color="black", 
+                 layout=l,edge.width=E(grafo)$width)#, main= paste0("Grafo año 2011, punto de corte de ", 
+          }
+        }
+      }
+      else{
+        l <-layout_nicely(grafo)
+        if (save) {
+          if (label) {
+            png(paste0("graficos/","grafo_2011_",threshold_pct*100,"_pcnt.png"))
+            plot(grafo,edge.arrow.size=.7,vertex.frame.color="#ffffff", edge.size = .5,
                  vertex.label="", vertex.label.color="black", vertex.size = 6, 
                  layout=l)#, main= paste0("Grafo año 2011, punto de corte de ", 
-                          #              threshold_pct*100,"%"))
+            #              threshold_pct*100,"%"))
             legend(x=-1.5,  y=1.5,unique(unique(correspondencia$continent)),
                    pch=21,col="#777777",pt.bg=unique(unique(correspondencia$color)),
                    pt.cex=2,cex=1.2,bty="n",ncol=5)
-        
+            
+          }
+          else{
+            png(paste0("graficos/","grafo_2011_",threshold_pct*100,"_pcnt.png"))
+            plot(grafo,edge.arrow.size=.7,vertex.frame.color="#ffffff",
+                 vertex.label="", vertex.label.color="black", vertex.size = 6, 
+                 layout=l)#, main= paste0("Grafo año 2011, punto de corte de ", 
+          }
+          dev.off()
         }
         else{
-          png(paste0("graficos/","grafo_2011_",threshold_pct*100,"_pcnt.png"))
-          plot(grafo,edge.arrow.size=.2,vertex.frame.color="#ffffff",
-               vertex.label="", vertex.label.color="black", vertex.size = 6, 
-               layout=l)#, main= paste0("Grafo año 2011, punto de corte de ", 
+          if (label) {
+            plot(grafo,edge.arrow.size=.2,vertex.frame.color="#ffffff",
+                 vertex.label="", vertex.label.color="black", vertex.size = 6, 
+                 layout=l, main= paste0("Grafo año 2011, punto de corte de ", threshold_pct*100,"%"))
+            legend(x=-.5,  y=1,unique(unique(correspondencia$continent)),
+                   pch=21,col="#777777",pt.bg=unique(unique(correspondencia$color)),
+                   pt.cex=2,cex=1.5,bty="n",ncol=1)
+            
           }
-        dev.off()
-        
+          else{
+            plot(grafo,edge.arrow.size=.2,vertex.frame.color="#ffffff",
+                 vertex.label="", vertex.label.color="black",
+                 layout=l)#, main= paste0("Grafo año 2011, punto de corte de ", 
+          }
+        }
       }
-      plot(grafo,edge.arrow.size=.2,vertex.frame.color="#ffffff",
-           vertex.label="", vertex.label.color="black", vertex.size = 6, 
-           layout=l)#, main= paste0("Grafo año 2011, punto de corte de ", threshold_pct*100,"%"))
-      legend(x=-.5,  y=1,unique(unique(correspondencia$continent)),
-             pch=21,col="#777777",pt.bg=unique(unique(correspondencia$color)),
-             pt.cex=2,cex=1.5,bty="n",ncol=1)
 }
 
 
 
+grafico_grafo(datos = dataset2,threshold_pct = 0.01, save = T, label = T,layout = "circle")
+grafico_grafo(datos = dataset2,threshold_pct = 0.05, save = T, label = F,layout = "circle")
+grafico_grafo(datos = dataset2,threshold_pct = 0.10, save = T, label = F,layout = "circle")
+grafico_grafo(datos = dataset2,threshold_pct = 0.15,save = T, label = F,layout = "circle")
 
 
 grafico_grafo(datos = dataset2,threshold_pct = 0.01, save = T, label = TRUE)
+grafico_grafo(datos = dataset2,threshold_pct = 0.2, save = T, label = TRUE)
+
 
 for (pcnt in seq(0.05,.25,0.05)) {
   grafico_grafo(threshold_pct = pcnt, save = T, label = FALSE)
@@ -440,15 +501,15 @@ correlacion_grado_impoexpo <- function(threshold_pct = 0.01,
                  filter(grado_impo>corte_grafico))+
     geom_smooth(method = "lm", se = FALSE)+
     geom_text_repel(data = grafo_impoexpo_DF %>%
-                      filter(corte_label==1, corte_leverage == 0), aes(label = pais))+
-    geom_text_repel(data = grafo_impoexpo_DF %>%
-                      filter(corte_leverage==1),
-                    aes(label = paste0(pais, " \n Leverage: ", round(leverage,2))), 
-                    color = "black", min.segment.length = 0)+
+                      filter(corte_label==1), aes(label = nodo))+ #corte_leverage == 0
+    # geom_text_repel(data = grafo_impoexpo_DF %>%
+    #                   filter(corte_leverage==1),
+    #                 aes(label = paste0(nodo, " \n Leverage: ", round(leverage,2))), 
+    #                 color = "black", min.segment.length = 0)+
     scale_color_gdocs()+
     theme_tufte()+
-    labs(x = "Grado grafo importaciones",
-         y = "Grado grafo exportaciones")+#,
+    labs(x = "G° Impo",
+         y = "G° Expo")+#,
          #title = "Grado total. multigrafo exportaciones e importaciones",
          #subtitle = paste0("Grafo año 2011, punto de corte de ", threshold_pct*100,"%"))+
     annotate("text", x = corte_grafico/2, y = corte_grafico*4,
@@ -464,7 +525,7 @@ correlacion_grado_impoexpo <- function(threshold_pct = 0.01,
   
   if (save) {
     grafico
-    ggsave(paste0("graficos/","corr_grados_2011_",threshold_pct*100,"_pcnt.png"), scale = 1)
+    ggsave(paste0("graficos/","corr_grados_2011_",threshold_pct*100,"_pcnt.png"), scale = 1, width = 10, height = 7 )
   }
   return(grafico)
 }
@@ -482,12 +543,13 @@ correlacion_grado_impoexpo(threshold_pct = 0.10,
                            save = TRUE,
                            pearson_note = FALSE,
                            label = FALSE)
+
 correlacion_grado_impoexpo(threshold_pct = 0.20,
                            data_expo = dataset_expo, 
                            data_impo = dataset2, 
                            save = TRUE,
                            pearson_note = FALSE,
-                           label = TRUE)
+                           label = FALSE)
 
 for (pcnt in seq(0.05,.25,0.05)) {
   print(pcnt)
