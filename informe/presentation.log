@@ -1,11 +1,11 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Debian) (preloaded format=pdflatex 2018.5.12)  17 JUL 2018 19:41
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Debian) (preloaded format=pdflatex 2018.5.24)  20 JUL 2018 14:29
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
 **presentation.tex
 (./presentation.tex
 LaTeX2e <2017-04-15>
-Babel <3.18> and hyphenation patterns for 84 language(s) loaded.
+Babel <3.18> and hyphenation patterns for 6 language(s) loaded.
 (/usr/share/texlive/texmf-dist/tex/latex/beamer/beamer.cls
 Document Class: beamer 2018/02/20 v3.50 A class for typesetting presentations
 (/usr/share/texlive/texmf-dist/tex/latex/beamer/beamerbasemodes.sty
@@ -482,12 +482,6 @@ Package: amsfonts 2013/01/14 v3.01 Basic AMSFonts support
 \symAMSb=\mathgroup5
 LaTeX Font Info:    Overwriting math alphabet `\mathfrak' in version `bold'
 (Font)                  U/euf/m/n --> U/euf/b/n on input line 106.
-))
-(/usr/share/texlive/texmf-dist/tex/latex/sansmathaccent/sansmathaccent.sty
-Package: sansmathaccent 2013/03/28
-
-(/usr/share/texlive/texmf-dist/tex/latex/filehook/filehook.sty
-Package: filehook 2011/10/12 v0.5d Hooks for input files
 )))
 (/usr/share/texlive/texmf-dist/tex/latex/beamer/beamerbasetranslator.sty
 (/usr/share/texlive/texmf-dist/tex/latex/translator/translator.sty
@@ -995,7 +989,7 @@ ine 301.
  [14
 
  <./Graficos/corr_grados_2011_10_pcnt.png (PNG copy)>]
-<Graficos/corr_grados_2011_20_pcnt.png, id=454, 722.7pt x 505.89pt>
+<Graficos/corr_grados_2011_20_pcnt.png, id=452, 722.7pt x 505.89pt>
 File: Graficos/corr_grados_2011_20_pcnt.png Graphic file (type png)
 <use Graficos/corr_grados_2011_20_pcnt.png>
 Package pdftex.def Info: Graficos/corr_grados_2011_20_pcnt.png  used on input l
@@ -1004,7 +998,7 @@ ine 324.
  [15
 
  <./Graficos/corr_grados_2011_20_pcnt.png (PNG copy)>]
-<Graficos/1950_2000_impo_densidad_USA_CHN_grado.png, id=483, 505.89pt x 722.7pt
+<Graficos/1950_2000_impo_densidad_USA_CHN_grado.png, id=482, 505.89pt x 722.7pt
 >
 File: Graficos/1950_2000_impo_densidad_USA_CHN_grado.png Graphic file (type png
 )
@@ -1021,7 +1015,7 @@ File: Graficos/1950_2000_impo_densidad_USA_CHN_grado.png Graphic file (type png
 Package pdftex.def Info: Graficos/1950_2000_impo_densidad_USA_CHN_grado.png  us
 ed on input line 371.
 (pdftex.def)             Requested size: 126.47218pt x 180.67455pt.
-<Graficos/impo_densidad_USAvsCHN_grado_x_yr.png, id=511, 486.8589pt x 282.8166p
+<Graficos/impo_densidad_USAvsCHN_grado_x_yr.png, id=512, 486.8589pt x 282.8166p
 t>
 File: Graficos/impo_densidad_USAvsCHN_grado_x_yr.png Graphic file (type png)
 <use Graficos/impo_densidad_USAvsCHN_grado_x_yr.png>
@@ -1036,7 +1030,7 @@ Overfull \hbox (16.75824pt too wide) in paragraph at lines 371--371
 [17
 
  <./Graficos/impo_densidad_USAvsCHN_grado_x_yr.png (PNG copy)>]
-<Graficos/1950_2000_coef_clustering_x_yr.png, id=542, 414.5889pt x 277.7577pt>
+<Graficos/1950_2000_coef_clustering_x_yr.png, id=540, 414.5889pt x 277.7577pt>
 File: Graficos/1950_2000_coef_clustering_x_yr.png Graphic file (type png)
 <use Graficos/1950_2000_coef_clustering_x_yr.png>
 Package pdftex.def Info: Graficos/1950_2000_coef_clustering_x_yr.png  used on i
@@ -1118,7 +1112,7 @@ Overfull \hbox (107.55333pt too wide) in paragraph at lines 424--424
 [22
 
 ]
-<Graficos/1950_2000_impo_densidad_CHN_JPN_ROK_atvlr.png, id=688, 505.89pt x 722
+<Graficos/1950_2000_impo_densidad_CHN_JPN_ROK_atvlr.png, id=687, 505.89pt x 722
 .7pt>
 File: Graficos/1950_2000_impo_densidad_CHN_JPN_ROK_atvlr.png Graphic file (type
  png)
@@ -1146,7 +1140,7 @@ Overfull \vbox (1.3313pt too high) detected at line 449
 [24
 
 ]
-<Graficos/1950_2000_impo_densidad_ARG_BRA_MEX_grado.png, id=746, 505.89pt x 722
+<Graficos/1950_2000_impo_densidad_ARG_BRA_MEX_grado.png, id=744, 505.89pt x 722
 .7pt>
 File: Graficos/1950_2000_impo_densidad_ARG_BRA_MEX_grado.png Graphic file (type
  png)
@@ -1215,48 +1209,43 @@ Overfull \vbox (3.52577pt too high) detected at line 495
 \tf@snm=\write8
 \openout8 = `presentation.snm'.
 
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 513.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 513.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 514.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 514.
  (./presentation.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 513.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 513.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 514.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 514.
 Package rerunfilecheck Info: File `presentation.out' has not changed.
 (rerunfilecheck)             Checksum: 37BDAEBCB89DA27147DB186BD84F6B37;88.
  ) 
 Here is how much of TeX's memory you used:
- 17414 strings out of 492982
- 332645 string characters out of 6134896
- 398907 words of memory out of 5000000
- 20485 multiletter control sequences out of 15000+600000
- 14075 words of font info for 53 fonts, out of 8000000 for 9000
- 1141 hyphenation exceptions out of 8191
- 56i,19n,55p,811b,605s stack positions out of 5000i,500n,10000p,200000b,80000s
-pdfTeX warning (dest): name{Navigation31} has been referenced but does not ex
-ist, replaced by a fixed one
-
-pdfTeX warning (dest): name{Navigation34} has been referenced but does not exis
-t, replaced by a fixed one
-
-</usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/
-share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/share/
-texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi6.pfb></usr/share/texlive
-/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/share/texlive/texmf-
-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/share/texlive/texmf-dist/fo
-nts/type1/public/amsfonts/cm/cmss10.pfb></usr/share/texlive/texmf-dist/fonts/ty
-pe1/public/amsfonts/cm/cmss12.pfb></usr/share/texlive/texmf-dist/fonts/type1/pu
-blic/amsfonts/cm/cmss17.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/a
-msfonts/cm/cmss8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts
-/cm/cmss9.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cms
-sbx10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmssi10
-.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmssi8.pfb><
-/usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/s
-hare/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy6.pfb></usr/share/te
-xlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/share/texlive/t
-exmf-dist/fonts/type1/public/amsfonts/cm/cmtt9.pfb>
-Output written on presentation.pdf (30 pages, 5267302 bytes).
+ 17303 strings out of 494861
+ 330277 string characters out of 6178804
+ 391880 words of memory out of 5000000
+ 20140 multiletter control sequences out of 15000+600000
+ 14243 words of font info for 54 fonts, out of 8000000 for 9000
+ 40 hyphenation exceptions out of 8191
+ 48i,19n,53p,811b,605s stack positions out of 5000i,500n,10000p,200000b,80000s
+</usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></us
+r/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/shar
+e/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi6.pfb></usr/share/texli
+ve/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/share/texlive/texm
+f-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/share/texlive/texmf-dist/
+fonts/type1/public/amsfonts/cm/cmss10.pfb></usr/share/texlive/texmf-dist/fonts/
+type1/public/amsfonts/cm/cmss12.pfb></usr/share/texlive/texmf-dist/fonts/type1/
+public/amsfonts/cm/cmss17.pfb></usr/share/texlive/texmf-dist/fonts/type1/public
+/amsfonts/cm/cmss8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfon
+ts/cm/cmss9.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/c
+mssbx10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmssi
+10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmssi8.pfb
+></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr
+/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy6.pfb></usr/share/
+texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/share/texlive
+/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb></usr/share/texlive/texmf
+-dist/fonts/type1/public/amsfonts/cm/cmtt9.pfb>
+Output written on presentation.pdf (30 pages, 5279093 bytes).
 PDF statistics:
- 989 PDF objects out of 1000 (max. 8388607)
- 903 compressed objects within 10 object streams
- 65 named destinations out of 1000 (max. 500000)
+ 992 PDF objects out of 1000 (max. 8388607)
+ 905 compressed objects within 10 object streams
+ 63 named destinations out of 1000 (max. 500000)
  149 words of extra memory for PDF output out of 10000 (max. 10000000)
 
