@@ -5,8 +5,8 @@ account: diegokoz
 server: shinyapps.io
 hostUrl: https://api.shinyapps.io/v1
 appId: 433082
-bundleId: 1578853
+bundleId: 1578936
 url: https://diegokoz.shinyapps.io/Distribucion_nodos_wrdtrade/
-when: 1536598718.9574
+when: 1536602318.86865
 asMultiple: FALSE
 asStatic: FALSE

@@ -26,7 +26,7 @@ ui <- fluidPage(theme = shinytheme("paper"),
                                
                                selectInput("var",
                                            label =  "Elegir métrica de centralidad",
-                                          choices = c("Grado","Intermediacion","Autovalor","Autovalor ponderado" ),
+                                          choices = c("Grado","Intermediacion","Autovalor","Autovalor ponderado por el comercio total"= "Autovalor_ponderado" ),
                                           selected = "Grado"),
                                selectInput("paises",
                                            label ="marcar países en el gráfico",

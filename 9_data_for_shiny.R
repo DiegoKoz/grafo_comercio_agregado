@@ -75,7 +75,7 @@ trade_to_graph <- function(edges, threshold_pct = .01) {
 
 ##### Datasets #####
 
-trade_dd <- read_delim("data/trade_dd.asc",delim = " ")
+trade_dd <- read_delim("Dataset/Gleditsch/exptradegdpv4.1/trade_dd.asc",delim = " ")
 
 # Caracterización del dataset
 codigos <- countrycode_data  %>%  
@@ -141,15 +141,15 @@ distribuciones_impo %>%
   rename(Intermediacion = betweenness,
          Grado = degree,
          Autovalor = autovalor,
-         `Autovalor ponderado`= autovalor_pond) %>% 
+         Autovalor_ponderado= autovalor_pond) %>% 
   mutate(yr = factor(yr)) %>% 
-saveRDS(., "distribuciones_impo.RDS")
+saveRDS(., "shinyApp/distribuciones_impo.RDS")
 
 distribuciones_expo %>% 
 rename(Intermediacion = betweenness,
        Grado = degree,
        Autovalor = autovalor,
-       `Autovalor ponderado`= autovalor_pond) %>% 
+       Autovalor_ponderado= autovalor_pond) %>% 
   mutate(yr = factor(yr)) %>% 
-saveRDS(., "distribuciones_expo.RDS")
+saveRDS(., "shinyApp/distribuciones_expo.RDS")
 
