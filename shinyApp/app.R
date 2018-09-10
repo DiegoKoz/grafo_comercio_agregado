@@ -16,7 +16,7 @@ distribuciones_expo <- read_rds("distribuciones_expo.RDS")
 
 ui <- fluidPage(theme = shinytheme("paper"),
                 
-        titlePanel("Distrbución de centralidad de los nodos"),
+        titlePanel("Distribución de centralidad de los nodos"),
                 
         sidebarLayout(
                   sidebarPanel(selectInput("data",
@@ -29,7 +29,7 @@ ui <- fluidPage(theme = shinytheme("paper"),
                                           choices = c("Grado","Intermediacion","Autovalor","Autovalor ponderado por el comercio total"= "Autovalor_ponderado" ),
                                           selected = "Grado"),
                                selectInput("paises",
-                                           label ="marcar países en el gráfico",
+                                           label ="Marcar países en el gráfico",
                                            choices = distribuciones_expo$pais,
                                            selected = c("United States", "China"),
                                           multiple = TRUE),
