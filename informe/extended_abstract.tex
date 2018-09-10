@@ -1,0 +1,86 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% Versión 2.x: Jornadas LatinR
+%% Versión 3: Abstract extendido final
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\documentclass[a4paper]{llncs}
+
+
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{natbib}
+\setcounter{tocdepth}{3}
+\usepackage{graphicx}
+\graphicspath{ {Graficos/} }
+\usepackage{subfigure}
+\usepackage{gensymb}
+
+\usepackage{url}
+\usepackage[utf8]{inputenc}
+
+\usepackage[spanish]{babel}
+
+%\usepackage[style=authoryear]{biblatex}
+
+\urldef{\mailsa}\path|diegokoz92@gmail.com|    
+\newcommand{\keywords}[1]{\par\addvspace\baselineskip
+	\noindent\keywordname\enspace\ignorespaces#1}
+\renewcommand\keywordname{Palabras Clave:}
+
+
+%Anulo la bibliografía
+\renewcommand{\cite}[2][]{}
+\renewcommand{\bibliography}[1]{}
+\renewcommand{\bibliographystyle}[1]{}
+
+\begin{document}
+	
+	\mainmatter  % start of an individual contribution
+	
+	% first the title is needed
+	\title{Descripción del comercio internacional\\utilizando un modelo de redes complejas}
+	
+	
+	
+	
+	\author{Diego Kozlowski}
+	%
+	\institute{Maestría en Data Mining \& Knowledge Discovery, FCEyN-UBA}
+	\maketitle
+		
+	\section{Abstract Extendido}
+	
+	El análisis del comercio internacional constituye una de las áreas de estudio más importantes de la investigación económica. Desde los comienzos de la economía política clásica constituye un tema de preocupación por sus fuertes implicancias \cite{ricardo1987principios}. Por su parte, el registro de la información referente al comercio entre países también se remonta a los comienzos del siglo XIX.          
+	
+	Sin embargo, el análisis tradicional de la información generada carece de las herramientas necesarias para hacer frente a los grandes volúmenes de datos generados por el comercio internacional en la actualidad. Históricamente, los indicadores sintéticos del área se resumen en volumen y masa de dinero comerciada, partiendo del total mundial, hacia desagregaciones por región, país y sector económico en cuestión\cite{WTO2017}.                
+	
+	El presente trabajo se propone utilizar las nuevas técnicas que provee el análisis de grafos para caracterizar el comercio internacional. Su modelización como una red compleja permite la construcción de medidas de resumen que, sin abandonar una mirada holística de la problemática, logren dar cuenta de una mayor complejidad que las métricas tradicionales de dicha área temática. 
+	
+	En la literatura reciente se realizaron diversos enfoques desde esta perspectiva, ya sea desde una mirada desde la teoría de la información\cite{Bhattacharya2008},  como una herramienta de modelización de los fenómenos económicos\cite{Fan2014}, para analizar las relaciones de centro-periferia\cite{Fagiolo2010}, o bien para realizar una descripción del estado del comercio internacional\cite{Chow2013}. 
+	
+% fuentes de información
+	La modelización del comercio internacional como un grafo requiere de los datos del flujo anual de comercio bilateral para el total de las mercancías. Dado que los datos del comercio bilateral son realizados por cada país involucrado, es necesaria una base de datos en la cual se haya recolectado la información provista por cada país, y que a su vez haya sido consolidada frente a las posibles, y de hecho abundantes, contradicciones que se presentan entre los reportes oficiales de los países involucrados. Por esto, se recurrió a una base previamente consistida por un organismo internacional oficial, la Organización Mundial del Comercio (de aquí en más OMC)\footnote{https://comtrade.un.org/}. Por motivos de accesibilidad de información, se decidió tomar el período de 1997-2011.
+	
+
+	%\subsection{El comercio internacional como una red compleja}
+	
+	La modelización del comercio internacional como un grafo conlleva una serie de simplificaciones de la información original. Es necesario establecer un punto de corte a partir del cual se considere que existe una relación comercial entre la dupla de países en cuestión. El umbral considerado es en términos relativos respecto al tamaño de los mismos, como un tanto por ciento de las importaciones o exportaciones del país que reporta la transacción.
+			
+	Dado que la restricción se construye por la importancia relativa para el nodo de origen, en general sólo existirá una pequeña cantidad de aristas que salgan de cada nodo, aunque no están limitadas las aristas en dirección hacia el nodo. Más precisamente, la máxima cantidad posible de aristas de salida es igual a $\frac{1}{umbral}$. Esta cantidad se obtiene sólo cuando el país comercia de forma uniforme con todos los países, y además comercia exactamente con $\frac{1}{umbral}$ países. La distribución del comercio dista mucho de ser uniforme, por lo cual la cantidad de aristas de salida de un nodo se verá fuertemente limitada. Sin embargo, la cantidad de aristas de entrada al nodo sólo se limita por la cantidad de nodos en el grafo. 
+	
+	Por lo tanto, para el grafo de importaciones, las medidas de centralidad de nodo marcaran la importancia de cada país como productor del mercado mundial, ya que lo que se esta midiendo es si los productos que exporta dicho país resultan significativos o no considerados en las importaciones de los demás países. Por su parte, para el grafo de exportaciones, las medidas de centralidad de los nodos, estarán reflejando la importancia de tal país como consumidor global. 
+	
+	Tomados los criterios metodológicos arriba mencionados, el análisis de las redes se encaró desde dos lugares. Primero, se tomó el año 2011 para observar las características de las redes según el umbral elegido, y analizar la correlación de los datos de importaciones respecto de las exportaciones. Para ello se analizaron diversas medidas de centralidad (cercanía, intermediación, grado y autovalor, entre otras), así como respecto del la red en su conjunto (transitividad y clustering), y resumiendo los múltiples resultados mediante Componentes Principales. Luego, se analizó el período 1997-2011, donde se observaron los cambios de las características macro de la red (en particular en la crisis de 2009), y la evolución del rol de ciertos países, según su centralidad.
+
+	
+	%\section{Conclusiones}
+	Entre los resultados obtenidos, encontramos que considerar el punto de corte para definir las aristas es una dimensión de análisis que permite observar las distintas formas de relación comercial entre los países. Al considerar umbrales bajos, se observan relaciones comerciales que pueden ser caracterizadas como de dependencia baja. En la medida que el umbral aumente, se consideran relaciones que expresan un carácter más dependiente de dicho vínculo para uno de los polos. En ese sentido la evolución de la centralidad de un nodo a lo largo de la dimensión del punto de corte, expresa las formas de comercio de ciertos países. En particular, resulta destacable que países como Sudáfrica o Estados Unidos aumentan su centralidad en grafos de relaciones más dependientes, mientras que China y otros tienen un movimiento contrario. 
+	
+	Por su parte, dado un punto de corte, se observo la evolución de China, desde posiciones de menor centralidad, hasta ser el nodo más importante del grafo en varias métricas, a partir de 2004 y 2005. 
+	
+	
+	\bibliographystyle{unsrt}
+	\bibliography{bibliografia}
+	
+\end{document}
+

@@ -1,0 +1,78 @@
+\begin{thebibliography}{10}
+
+\bibitem{ricardo1987principios}
+David Ricardo.
+\newblock {Principios de econom{\'{i}}a pol{\'{i}}tica y tributaci{\'{o}}n},
+  2007.
+
+\bibitem{WTO2017}
+WTO.
+\newblock {World Trade Statistics Review 2017}.
+\newblock Technical report, 2017.
+
+\bibitem{Bhattacharya2008}
+K.~Bhattacharya, G.~Mukherjee, J.~Saram{\"{a}}ki, K.~Kaski, and S.~S. Manna.
+\newblock {The international trade network: Weighted network analysis and
+  modelling}.
+\newblock {\em Journal of Statistical Mechanics: Theory and Experiment},
+  2008(2), 2008.
+
+\bibitem{Fan2014}
+Ying Fan, Suting Ren, Hongbo Cai, and Xuefeng Cui.
+\newblock {The state's role and position in international trade: A complex
+  network perspective}.
+\newblock {\em Economic Modelling}, 39:71--81, 2014.
+
+\bibitem{Fagiolo2010}
+Giorgio Fagiolo, Javier Reyes, and Stefano Schiavo.
+\newblock {The evolution of the world trade web: A weighted-network analysis}.
+\newblock {\em Journal of Evolutionary Economics}, 20(4):479--514, 2010.
+
+\bibitem{Chow2013}
+William Chow.
+\newblock {An Anatomy of the World Trade Network}.
+\newblock pages 1--20, 2013.
+
+\bibitem{Fagiolo2007}
+Giorgio Fagiolo, Javier Reyes, and Stefano Schiavo.
+\newblock {The Evolution of the World Trade Web Giorgio}.
+\newblock 2007.
+
+\bibitem{RCoreTeam2017}
+{R Core Team}.
+\newblock {R: A Language and Environment for Statistical Computing}, 2017.
+
+\bibitem{Csardi2006}
+Gabor Csardi and Tamas Nepusz.
+\newblock {The igraph software package for complex network research}.
+\newblock {\em InterJournal}, Complex Sy:1695, 2006.
+
+\bibitem{Wickham2017}
+Hadley Wickham.
+\newblock {\em {tidyverse: Easily Install and Load the 'Tidyverse'}}, 2017.
+
+\bibitem{Wilke2017}
+Claus~O Wilke.
+\newblock {\em {ggridges: Ridgeline Plots in 'ggplot2'}}, 2017.
+
+\bibitem{Arnold2017}
+Jeffrey~B Arnold.
+\newblock {\em {ggthemes: Extra Themes, Scales and Geoms for 'ggplot2'}}, 2017.
+
+\bibitem{Neuwirth2014}
+Erich Neuwirth.
+\newblock {\em {RColorBrewer: ColorBrewer Palettes}}, 2014.
+
+\bibitem{Slowikowski2017}
+Kamil Slowikowski.
+\newblock {\em {ggrepel: Repulsive Text and Label Geoms for 'ggplot2'}}, 2017.
+
+\bibitem{Vu2011}
+Vincent~Q Vu.
+\newblock {\em {ggbiplot: A ggplot2 based biplot}}, 2011.
+
+\bibitem{Arel-Bundock2017}
+Vincent Arel-Bundock.
+\newblock {\em {countrycode: Convert Country Names and Country Codes}}, 2017.
+
+\end{thebibliography}

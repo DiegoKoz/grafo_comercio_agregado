@@ -67,12 +67,12 @@ trade_to_graph <- function(edges, threshold_pct = .01) {
 
 
 
-countrycode_data <- codelist
+
 
 ##### Datasets #####
 dataset <- readRDS('Dataset/dataset_COMTRADE_2011.rds')
 dataset <- dataset %>% select(rt3ISO,pt3ISO,rtTitle,ptTitle,TradeValue)
-dataset <- left_join(dataset,countrycode_data 
+dataset2 <- left_join(dataset,countrycode_data 
                       %>% select(rt3ISO=iso3c, continent, country.name.es)) %>% 
   na.omit(.)
 
