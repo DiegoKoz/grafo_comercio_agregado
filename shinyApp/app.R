@@ -19,8 +19,7 @@ ui <- fluidPage(theme = shinytheme("paper"),
         titlePanel("Distrbución de centralidad de los nodos"),
                 
         sidebarLayout(
-                  sidebarPanel("Autor: Diego Kozlowski",
-                               selectInput("data",
+                  sidebarPanel(selectInput("data",
                                            label =  "Elegir tipo de datos",
                                           choices = c("Importaciones","Exportaciones"),
                                           selected = "Importaciones"),
@@ -33,12 +32,19 @@ ui <- fluidPage(theme = shinytheme("paper"),
                                            label ="marcar países en el gráfico",
                                            choices = distribuciones_expo$pais,
                                            selected = c("United States", "China"),
-                                          multiple = TRUE)
+                                          multiple = TRUE),
+                               
+                               "Autor: ",a("Diego Kozlowski", href="https://sites.google.com/view/diego-kozlowski")
                                ),
                   mainPanel(plotOutput("plot", width = "800px", height = "600px")%>% 
-                                           withSpinner(color="#0dc5c1")
-                                
+                                           withSpinner(color="#0dc5c1"),
+                            helpText("El código se encuentra disponible en el",
+                                     a("Repositorio de GitHub", href="https://github.com/DiegoKoz/grafo_comercio_agregado")),
+                            helpText("Las medidas de centralidad y el análisis de la información se encuentra en el siguiente",
+                                     a("artículo", href="https://drive.google.com/file/d/1puJFu9cWRMrFg_MUUtnhKExeFcU6RJHg/view"))
+                            
                            )
+                  
                       )
 )
 ##### server ##### 
